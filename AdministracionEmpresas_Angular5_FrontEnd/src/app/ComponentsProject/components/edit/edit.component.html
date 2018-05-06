@@ -1,0 +1,97 @@
+
+
+<!-- Creation date: 11/04/2018 
+	 Author: Josue Arce
+	 Description : edit window view 
+-->
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--4-col">
+		<h4>Editar Componente</h4>
+	</div>
+</div>
+
+<div class="mdl-grid">
+
+	<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+
+		<!-- Header - Filter and edit button -->
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--10-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+				<mat-form-field >
+			        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+		        </mat-form-field>	        
+			</div>
+		</div>
+
+		<!-- Second Grid Table And Edit Inputs-->
+		<div class="mdl-grid">
+		  <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+		  	<mat-table #table [dataSource]="dataSource" [ngStyle]="{width_: '100%'}">
+
+					    <!-- Select Column -->
+					    <ng-container matColumnDef="select" >
+					      <mat-header-cell *matHeaderCellDef>			     
+					      </mat-header-cell>
+					      <mat-cell *matCellDef="let row">
+					        <mat-checkbox 
+					                      (change)="$event ? selectItem(row) : null"
+					                      [checked]="selection.isSelected(row)">
+					        </mat-checkbox>
+					      </mat-cell>
+					    </ng-container>
+
+
+					    <!-- Component Column -->
+					    <ng-container matColumnDef="Componente">
+					      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Componente </mat-header-cell>
+					      <mat-cell *matCellDef="let element"> {{element.Componente}} </mat-cell>
+					    </ng-container>
+
+					    <!-- Dimension Column -->
+					    <ng-container matColumnDef="Dimension">
+					      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Dimensión Asociada </mat-header-cell>
+					      <mat-cell *matCellDef="let element"> {{element.Dimension}} </mat-cell>
+					    </ng-container>
+
+					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					    <mat-row *matRowDef="let row; columns: displayedColumns;" >
+					    </mat-row>
+					</mat-table>
+
+					<!-- Pagination -->
+					<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-end">
+						<mat-paginator [length]="100" [pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="{backgroundColor:'transparent'}"></mat-paginator>
+					</div>
+		  </div>
+		  <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+		  	<!-- First input -->
+	        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+	          <mat-form-field>
+	            <input matInput #input maxlength="30" placeholder="Ingrese el nombre del Componente" [(ngModel)]="Component">
+    			<mat-hint align="begin"  [ngStyle]="{'color':'red'}">*Espacío Vacío</mat-hint><mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
+	          </mat-form-field>
+	        </div>  
+
+	        <!-- Second input -->
+	        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+
+	            <!-- <mat-form-field>
+				  <mat-select placeholder="Dimensiones>
+				    <mat-option 
+				    *ngFor="let item of lista" [value]="item.Dimension">
+				      {{ item.Dimension }}
+				    </mat-option>
+				  </mat-select>
+				</mat-form-field> -->
+
+	            <mat-hint align="begin"  [ngStyle]="{'color':'red'}">*Sin Seleccionar</mat-hint>
+	        </div>
+
+	        <!-- Button save -->
+	        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+	          <button mat-raised-button color="primary"  style="width: 100%">Guardar</button>
+	        </div>
+		  </div>
+		</div>	
+	</div>
+</div>

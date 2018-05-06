@@ -1,0 +1,49 @@
+<!--  Creation date : 09/04/2018 
+    Author : Josue Arce Gonzalez
+    Description : component add item view - allows user to add new 'componentes' to the DB
+-->
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <h4>Editar Componente</h4>
+  </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <!-- First input -->
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+          <mat-form-field>
+            <input matInput #input maxlength="30" placeholder="Ingrese el nombre del Componente" [(ngModel)]="Component" >
+            <mat-hint align="begin" *ngIf="!Component" [ngStyle]="{'color':'red'}">*Espacío Vacío</mat-hint><mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
+          </mat-form-field>
+        </div>  
+
+        <!-- Second input -->
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+
+            <mat-form-field>
+
+              <mat-select placeholder="Dimensiones Disponibles" [(value)]="Dimension">
+
+                <mat-option [value]="item" *ngFor="let item of dimensionRecords" >{{item.Dimension}}</mat-option>
+
+              </mat-select>
+
+              <mat-hint align="begin" *ngIf="!Dimension" [ngStyle]="{'color':'red'}">*Sin Seleccionar</mat-hint>
+
+            </mat-form-field>
+        </div>
+
+        <!-- Button save -->
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+          <button mat-raised-button color="primary" [disabled]="!(Component && Dimension)" (click)="save_data()" style="width: 100%">Guardar</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+
+
+<!-- 	Creation date: 09/04/2018
+ 		Author : Josue David Arce Gonzalez
+ 		Description : View part of the delete component
+ -->
+
+
+<div class="mdl-cell">
+  <div class="mdl-cell mdl-cell--4-col">
+    <h4>Eliminar Componente</h4>
+  </div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" [ngStyle]="{}">
+
+    <div class="mdl-grid">
+
+      <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+      </div>
+
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <button (click)="deleteButton()" style="width: 100%;font-size: 15px"
+        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Eliminar</button>
+      </div>
+    </div>
+    
+    <div class="mdl-cell mdl--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: center;width: 100%">
+      <mat-table #table [dataSource]="dataSource" [ngStyle]="{width:'100%'}">
+
+          <ng-container matColumnDef="select" >
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()" >
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox 
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+          </ng-container>
+
+          <!-- Component Column -->
+          <ng-container matColumnDef="Componente">
+            <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Componente </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Componente}} </mat-cell>
+          </ng-container>
+
+          <!-- Dimension Column -->
+          <ng-container matColumnDef="Dimension">
+            <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Dimensión Asociada </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Dimension}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" >
+          </mat-row>
+      </mat-table>
+      
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-end">
+      <mat-paginator [length]="100" [pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="{backgroundColor:'transparent'}"></mat-paginator>
+    </div>
+  </div>
+</div>
+
